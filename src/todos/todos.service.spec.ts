@@ -15,4 +15,16 @@ describe('TodosService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('create', () => {
+    it('should create a todo', () => {
+      const todo = service.create({ title: 'test', description: 'test' });
+      expect(todo).toEqual({
+        id: 1,
+        title: 'test',
+        description: 'test',
+        completed: false,
+      });
+    });
+  });
 });
