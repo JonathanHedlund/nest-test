@@ -6,10 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+
+const convertToBoolean = (value: string) => {
+  if (value === 'true') {
+    return true;
+  } else if (value === 'false') {
+    return false;
+  }
+};
 
 @Controller('todos')
 export class TodosController {
@@ -21,8 +30,10 @@ export class TodosController {
   }
 
   @Get()
-  findAll() {
-    return this.todosService.findAll();
+  findAll(@Query('completed') completed?: string) {
+    return this.todosService.findAll(
+      completed ? convertToBoolean(completed) : undefined,
+    );
   }
 
   @Get(':id')

@@ -39,8 +39,12 @@ export class TodosService {
     };
   }
 
-  findAll(): Todo[] {
-    return this.todos;
+  findAll(completed?: boolean): Todo[] {
+    if (completed === undefined) {
+      return this.todos;
+    }
+
+    return this.todos.filter((todo) => todo.completed === completed);
   }
 
   findOne(id: number): Todo {
